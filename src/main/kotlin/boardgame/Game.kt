@@ -5,10 +5,7 @@ data class Player(
 )
 
 data class BoardGame(
-    val board: Board,
-    val players: Pair<Player, Player>,
-    val currentTurn: Player,
-    val winConditions: List<WinCondition>
+    val board: Board
 ) {
     fun makeMove(move: Move): BoardGame {
         return this.copy(
@@ -27,19 +24,7 @@ sealed class Space {
 data class Board(
     val board: List<List<Space>>
 ) {
-    fun makeMove(move: Move): Board {
-        if (!can_make_move(move)) {
-            return this
-        }
-        val space = board[move.x][move.y]
-        return when (space) {
-            is Space.Occupied -> this
-            is Space.Empty -> this
-        }
-    }
-
-    private fun can_make_move(move: Move): Boolean = true
-
+    fun makeMove(move: Move): Board = TODO()
 }
 
 data class Piece(
