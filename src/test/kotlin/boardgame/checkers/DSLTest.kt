@@ -1,6 +1,9 @@
 package boardgame.checkers
 
-import boardgame.*
+import boardgame.Board
+import boardgame.BoardGame
+import boardgame.Space
+import boardgame.checkers
 import org.amshove.kluent.shouldEqual
 import org.junit.jupiter.api.Test
 
