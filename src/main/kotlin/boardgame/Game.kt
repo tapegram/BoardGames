@@ -1,5 +1,7 @@
 package boardgame
 
+import java.lang.RuntimeException
+
 data class Player(
     val name: String
 )
@@ -25,6 +27,8 @@ fun Board2D.set(coord: Coord, space: Space) = this.replace(
     )
 )
 fun Board2D.get(coord: Coord) = this[coord.rank][coord.file]
+
+class IllegalMove: RuntimeException()
 
 data class Board(
     val board: Board2D
