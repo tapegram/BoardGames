@@ -2,6 +2,8 @@ package boardgame.checkers
 
 import boardgame.Board
 import boardgame.BoardGame
+import boardgame.BoardState
+import boardgame.Piece
 import boardgame.Space
 import boardgame.checkers
 import org.amshove.kluent.shouldEqual
@@ -10,39 +12,98 @@ import org.junit.jupiter.api.Test
 
 class DSLTest {
     @Test
-    fun `instantiate an 8x8 empty board`() {
+    fun `instantiate a default 8x8 board`() {
         val checkers = checkers {
             board {
-                dimensions = Pair(8, 8)
+                boardState = BoardState.Initial
             }
         }
 
+        val checker = Piece(listOf())
         checkers shouldEqual BoardGame(
             Board(
-                List(8) {
-                    List(8) {
+                listOf(
+                    listOf(
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker),
                         Space.Empty
-                    }
-                }
-            )
-        )
-    }
-
-    @Test
-    fun `instantiate a 5x10 empty board`() {
-        val checkers = checkers {
-            board {
-                dimensions = Pair(5, 10)
-            }
-        }
-
-        checkers shouldEqual BoardGame(
-            Board(
-                List(5) {
-                    List(10) {
+                    ),
+                    listOf(
+                        Space.Empty,
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker)
+                    ),
+                    listOf(
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
                         Space.Empty
-                    }
-                }
+                    ),
+                    listOf(
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty
+                    ),
+                    listOf(
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty
+                    ),
+                    listOf(
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty,
+                        Space.Empty
+                    ),
+                    listOf(
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker),
+                        Space.Empty
+                    ),
+                    listOf(
+                        Space.Empty,
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker),
+                        Space.Empty,
+                        Space.Occupied(checker)
+                    )
+                )
             )
         )
     }

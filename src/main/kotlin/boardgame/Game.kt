@@ -14,17 +14,35 @@ data class BoardGame(
     }
 }
 
-interface WinCondition
-
-sealed class Space {
-    data class Occupied(val piece: Piece) : Space()
-    object Empty : Space()
-}
+fun <E> Iterable<E>.replace(index: Int, new: E) = mapIndexed { i, e -> if (i == index) new else e }
 
 data class Board(
     val board: List<List<Space>>
 ) {
-    fun makeMove(move: Move): Board = TODO()
+    fun makeMove(move: Move): Board =
+        set(move.to, get(move.from))
+            .set(move.from, Space.Empty)
+
+    private fun get(coord: Coord): Space =
+        board[coord.rank][coord.file]
+
+    private fun set(coord: Coord, space: Space): Board {
+        return this.copy(
+            board=board.replace(
+                coord.rank,
+                board[coord.rank].replace(
+                    coord.file,
+                    space
+                )
+            )
+        )
+    }
+
+}
+
+sealed class Space {
+    data class Occupied(val piece: Piece) : Space()
+    object Empty : Space()
 }
 
 data class Piece(
@@ -32,7 +50,12 @@ data class Piece(
 )
 
 data class Move(
-    val x: Int,
-    val y: Int
+    val from: Coord,
+    val to: Coord
+)
+
+data class Coord(
+    val rank: Int,
+    val file: Int
 )
 
