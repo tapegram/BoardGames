@@ -16,27 +16,25 @@ data class BoardGame(
 
 fun <E> Iterable<E>.replace(index: Int, new: E) = mapIndexed { i, e -> if (i == index) new else e }
 
+typealias Board2D = List<List<Space>>
+fun Board2D.set(coord: Coord, space: Space) = this.replace(
+    coord.rank,
+    this[coord.rank].replace(
+        coord.file,
+        space
+    )
+)
+fun Board2D.get(coord: Coord) = this[coord.rank][coord.file]
+
 data class Board(
-    val board: List<List<Space>>
+    val board: Board2D
 ) {
     fun makeMove(move: Move): Board =
-        set(move.to, get(move.from))
-            .set(move.from, Space.Empty)
-
-    private fun get(coord: Coord): Space =
-        board[coord.rank][coord.file]
-
-    private fun set(coord: Coord, space: Space): Board {
-        return this.copy(
-            board=board.replace(
-                coord.rank,
-                board[coord.rank].replace(
-                    coord.file,
-                    space
-                )
-            )
+        this.copy(
+            board=board
+                .set(move.to, board.get(move.from))
+                .set(move.from, Space.Empty)
         )
-    }
 
 }
 
